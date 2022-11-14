@@ -1,0 +1,86 @@
+---
+title: "correlation"
+author: "Bolu Akinlawon"
+date: "3/22/2022"
+output:
+  word_document: default
+  html_document: default
+---
+```{r}
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r}
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+
+#reading the average admissions data into a dataframe
+averages<- read_csv("datasets/average admissions.csv")
+
+averages$Month<-factor(averages$Month, levels = averages$Month)
+#plotting the dataset
+ggplot(averages, aes(Month, `average maternity`)) + geom_point((aes(col=Month, size=`average maternity`))) + theme(axis.title.x = element_text(vjust=0.5)) + theme(axis.text.x = element_text(angle = 45)) + ylab("Average maternity") +xlab("Months")
+```
+
+
+```{r}
+#testing correlation between the maternity statistics and the average admissions
+corr.test(averages$Admissions, averages$`average maternity`)
+cor(averages$Admissions, averages$`average maternity`)
+
+
+
+#linear regression model
+simple.fit = lm(Admissions~`average maternity`, data=averages) 
+summary(simple.fit)
+
+plot(simple.fit)
+```
+
+
+```{r}
+
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+
+correlations <- read_csv("datasets/correlations.csv")
+
+#testing correlation between the months and the average admissions
+corr.test(correlations$Average, correlations$Month)
+cor(correlations$Average, correlations$Month)
+
+#linear regression model
+simple.fit = lm(Average~Month, data=correlations) 
+summary(simple.fit)
+
+plot(simple.fit)
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

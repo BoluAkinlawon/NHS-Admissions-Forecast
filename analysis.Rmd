@@ -1,0 +1,307 @@
+---
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r}
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+file <- read_csv("datasets/ethnic data.csv")
+file
+file2 <- file %>% select("Ethnic category", Admissions, Male, Female)
+ggplot(file2, aes(file$`Ethnic category`, file$Admissions)) +geom_point((aes(col='Ethnic category', size=Admissions))) +geom_smooth()+theme(axis.text.x = element_text(angle = 45)) + theme(axis.title.x = element_text(vjust=10.5)) + ylab("Admissions") +xlab("Ethnicity")
+# The White British community is over represented due to the fact that they are the majority of the population, so it is something to take note of when analyzing
+
+#comparing Ethnic category and the male admissions number
+ggplot(file2, aes(file$`Ethnic category`, file$Male)) +geom_point((aes(col='Ethnic category', size=Male))) +geom_smooth()+theme(axis.text.x = element_text(angle = 45)) + theme(axis.title.x = element_text(vjust=10.5)) + ylab("Admissions") +xlab("Number of male patients")
+
+
+#comparing Female and the Male admissions number
+ggplot(file2, aes(file$Male, file$Female)) +geom_point((aes(col=Male, size=Female))) +geom_smooth()+theme(axis.text.x = element_text(angle = 45)) + theme(axis.title.x = element_text(vjust=10.5)) + ylab("Number of Female") +xlab("Number of male patients")
+
+#comparing Ethnic category and the mean length of stay
+file3 <- file %>% select("Ethnic category", Admissions, "Mean length of stay")
+ggplot(file3, aes(file$`Ethnic category`, file$"Mean length of stay")) +geom_point((aes(col='Ethnic category', size='Mean length of stay'))) +geom_smooth()+theme(axis.text.x = element_text(angle = 45)) + theme(axis.title.x = element_text(vjust=10.5)) + ylab("Mean length of stay") +xlab("Ethnicity")
+```
+
+
+```{r}
+
+```
+
+```{r}
+
+#correlation testing
+library("ggpubr")
+cor.test(file$Male, file$Female, method=c("pearson", "kendall", "spearman"))
+cor.test(file3$`Admissions`, file$"Mean length of stay", method=c("pearson", "kendall", "spearman"))
+
+```
+
+
+
+
+
+```{r}
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+timeseries <- read_csv("datasets/10 year monthly summarized data.csv")
+
+
+
+#"subset for 2008-09"
+timeseries_subset <- timeseries[c(1:12), c(1,2,17)]
+
+timeseries_subset$Period<-factor(timeseries_subset$Period, levels = timeseries_subset$Period)
+
+
+ggplot(timeseries_subset, aes(Period, Total))+ geom_point((aes(col=Period, size=Total))) + theme(axis.title.x = element_text(vjust=0.5)) + theme(axis.text.x = element_text(angle = 45)) + ylab("Total admissions") +xlab("Months(April 2008 to March 2009)") + geom_path()
+```
+
+
+
+```{r}
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+timeseries <- read_csv("datasets/10 year monthly summarized data.csv")
+
+#"subset for 2009-10"
+timeseries_subset <- timeseries[c(13:24), c(1,2,17)]
+
+timeseries_subset$Period<-factor(timeseries_subset$Period, levels = timeseries_subset$Period)
+
+ggplot(timeseries_subset, aes(Period, Total))+ geom_point((aes(col=Period, size=Total))) + theme(axis.title.x = element_text(vjust=0.5)) + theme(axis.text.x = element_text(angle = 45)) + ylab("Total admissions") +xlab("Months(April 2009 to March 2010)")
+```
+```{r}
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+timeseries <- read_csv("datasets/10 year monthly summarized data.csv")
+
+#"subset for 2010-11"
+timeseries_subset <- timeseries[c(25:36), c(1,2,17)]
+
+timeseries_subset$Period<-factor(timeseries_subset$Period, levels = timeseries_subset$Period)
+ggplot(timeseries_subset, aes(Period, Total))+ geom_point((aes(col=Period, size=Total))) + theme(axis.title.x = element_text(vjust=0.5)) + theme(axis.text.x = element_text(angle = 45)) + ylab("Total admissions") +xlab("Months(April 2010 to March 2011)")
+
+```
+```{r}
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+timeseries <- read_csv("datasets/10 year monthly summarized data.csv")
+
+#"subset for 2011-12"
+timeseries_subset <- timeseries[c(37:48), c(1,2,17)]
+
+timeseries_subset$Period<-factor(timeseries_subset$Period, levels = timeseries_subset$Period)
+ggplot(timeseries_subset, aes(Period, Total))+ geom_point((aes(col=Period, size=Total))) + theme(axis.title.x = element_text(vjust=0.5)) + theme(axis.text.x = element_text(angle = 45)) + ylab("Total admissions") +xlab("Months(April 2011 to March 2012)")
+
+```
+
+
+```{r}
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+timeseries <- read_csv("datasets/10 year monthly summarized data.csv")
+
+#"subset for 2012-13"
+timeseries_subset <- timeseries[c(49:60), c(1,2,17)]
+
+timeseries_subset$Period<-factor(timeseries_subset$Period, levels = timeseries_subset$Period)
+ggplot(timeseries_subset, aes(Period, Total))+ geom_point((aes(col=Period, size=Total))) + theme(axis.title.x = element_text(vjust=0.5)) + theme(axis.text.x = element_text(angle = 45)) + ylab("Total admissions") +xlab("Months(April 2012 to March 2013)")
+
+```
+```{r}
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+timeseries <- read_csv("datasets/10 year monthly summarized data.csv")
+
+#"subset for 2013-14"
+timeseries_subset <- timeseries[c(61:72), c(1,2,17)]
+
+timeseries_subset$Period<-factor(timeseries_subset$Period, levels = timeseries_subset$Period)
+ggplot(timeseries_subset, aes(Period, Total))+ geom_point((aes(col=Period, size=Total))) + theme(axis.title.x = element_text(vjust=0.5)) + theme(axis.text.x = element_text(angle = 45)) + ylab("Total admissions") +xlab("Months(April 2013 to March 2014)")
+
+```
+```{r}
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+timeseries <- read_csv("datasets/10 year monthly summarized data.csv")
+
+#"subset for 2014-15"
+timeseries_subset <- timeseries[c(73:84), c(1,2,17)]
+
+timeseries_subset$Period<-factor(timeseries_subset$Period, levels = timeseries_subset$Period)
+ggplot(timeseries_subset, aes(Period, Total))+ geom_point((aes(col=Period, size=Total))) + theme(axis.title.x = element_text(vjust=0.5)) + theme(axis.text.x = element_text(angle = 45)) + ylab("Total admissions") +xlab("Months(April 2014 to March 2015)")
+
+```
+
+
+```{r}
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+timeseries <- read_csv("datasets/10 year monthly summarized data.csv")
+
+#"subset for 2015-16"
+timeseries_subset <- timeseries[c(85:96), c(1,2,17)]
+
+timeseries_subset$Period<-factor(timeseries_subset$Period, levels = timeseries_subset$Period)
+ggplot(timeseries_subset, aes(Period, Total))+ geom_point((aes(col=Period, size=Total))) + theme(axis.title.x = element_text(vjust=0.5)) + theme(axis.text.x = element_text(angle = 45)) + ylab("Total admissions") +xlab("Months(April 2015 to March 2016)")
+
+```
+
+```{r}
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+timeseries <- read_csv("datasets/10 year monthly summarized data.csv")
+
+#"subset for 2016-17"
+timeseries_subset <- timeseries[c(97:108), c(1,2,17)]
+
+timeseries_subset$Period<-factor(timeseries_subset$Period, levels = timeseries_subset$Period)
+ggplot(timeseries_subset, aes(Period, Total))+ geom_point((aes(col=Period, size=Total))) + theme(axis.title.x = element_text(vjust=0.5)) + theme(axis.text.x = element_text(angle = 45)) + ylab("Total admissions") +xlab("Months(April 2016 to March 2017)")
+```
+```{r}
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+timeseries <- read_csv("datasets/10 year monthly summarized data.csv")
+
+#"subset for 2017-18"
+timeseries_subset <- timeseries[c(109:120), c(1,2,17)]
+
+timeseries_subset$Period<-factor(timeseries_subset$Period, levels = timeseries_subset$Period)
+ggplot(timeseries_subset, aes(Period, Total))+ geom_point((aes(col=Period, size=Total))) + theme(axis.title.x = element_text(vjust=0.5)) + theme(axis.text.x = element_text(angle = 45)) + ylab("Total admissions") +xlab("Months(April 2017 to March 2018)")
+```
+```{r}
+
+```
+
+```{r}
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+timeseries <- read_csv("datasets/10 year monthly summarized data.csv")
+subtime <- timeseries[c(1:96), c(1,2,17)]
+
+timeseries_subset$Period<-factor(timeseries_subset$Period, levels = timeseries_subset$Period)
+library("ggpubr")
+cor.test(file$Male, file$Female, method=c("pearson", "kendall", "spearman"))
+cor.test(file3$`Admissions`, file$"Mean length of stay", method=c("pearson", "kendall", "spearman"))
+```
+```{r}
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+timeseries <- read_csv("datasets/new.csv")
+
+```
+
+```{r}
+averages <- data.frame(Month = c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"),
+                       `Admissions admissions` = c(7800428.1, 7535116.6, 8268049.3, 7456169.3, 7745642.2, 7992003.2, 8088004.2, 7434678.1, 7932904.1, 8208671.9, 8074650.7, 7060764.5))
+
+averages$Month<-factor(averages$Month, levels = averages$Month)
+
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+
+sapply(averages, class)
+
+ggplot(averages, aes(Month,"Admissions admissions")) +geom_point() +geom_smooth()+theme(axis.text.x = element_text(angle = 45)) + theme(axis.title.x = element_text(vjust=10.5)) + ylab("Admissions") +xlab("Month") + geom_smooth()
+
+plot(averages$Month, averages$`Admissions admissions`)
+```
+
+
+```{r}
+
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+
+averages<- read_csv("datasets/average admissions.csv")
+
+averages$Month<-factor(averages$Month, levels = averages$Month)
+
+ggplot(averages, aes(Month, Admissions)) + geom_point((aes(col=Month, size=Admissions))) + theme(axis.title.x = element_text(vjust=0.5)) + theme(axis.text.x = element_text(angle = 45)) + ylab("Admissions admissions") +xlab("Months")
+```
+
+
+```{r}
+library("tidyverse")
+library("ggplot2")
+library("psych")
+library("dplyr")
+library("readr")
+library("tidyr")
+
+averages<- read_csv("datasets/average admissions.csv")
+
+averages$Month<-factor(averages$Month, levels = averages$Month)
+
+ggplot(averages, aes(Month, `average maternity`)) + geom_point((aes(col=Month, size=`average maternity`))) + theme(axis.title.x = element_text(vjust=0.5)) + theme(axis.text.x = element_text(angle = 45)) + ylab("Average maternity") +xlab("Months")
+
+corr.test(averages$Admissions, averages$`average maternity`)
+cor(averages$Admissions, averages$`average maternity`)
+
+simple.fit = lm(Admissions~`average maternity`, data=averages) 
+summary(simple.fit)
+
+plot(simple.fit)
+```
+
